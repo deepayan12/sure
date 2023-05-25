@@ -39,7 +39,7 @@ def do_all():
     testing_data = runner.MyDataset(X_test, X_test_sensitive, y_test)
 
     verbose = -3
-    arg_func = partial(runner.do_all, training_data=training_data, testing_data=testing_data, sensitive_cols=sensitive_cols, batch_size=200, num_pts_in_bin=args.num_pts_in_bin, skip_epochs=args.skip_epochs, cluster_epochs=args.cluster_epochs, epochs=args.epochs, verbose=verbose, dropout_p=args.dropout_p, train_error_check_epochs=[50, 100, 150, 200]+list(np.arange(300, args.epochs+1, 100)))
+    arg_func = partial(runner.do_all, training_data=training_data, testing_data=testing_data, sensitive_cols=sensitive_cols, batch_size=200, num_pts_in_bin=args.num_pts_in_bin, skip_epochs=args.skip_epochs, cluster_epochs=args.cluster_epochs, epochs=args.epochs, verbose=verbose, dropout_p=args.dropout_p, train_error_check_epochs=[50, 100, 150, 200]+list(np.arange(300, args.epochs+1, 500)))
     all_args.append((seed, arg_func))
 
   all_res, all_res_full, attr_series = sim_with_classes_helper.create_and_run_args(list_seeds_and_arg_funcs=all_args, num_procs=args.num_procs)

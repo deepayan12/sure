@@ -74,7 +74,7 @@ def analyze_all_res(all_res, attr_series):
   all_z = all_res.loc['accuracy'].stack('seed').T.rename(attr_series).rename_axis(index='sensitive').apply(lambda s: s.groupby('sensitive').min()).sort_index(axis=0, level=['Train/Test', 'epoch', 'seed'])
   for sensitive in all_z.index.values:
     z = all_z.loc[sensitive].unstack(['Train/Test', 'epoch', 'seed'])
-    print(f'==== Utility = worst-accuracy among all clusters for {sensitive} (including the baseline group)')
+    print(f'==== Utility = worst-accuracy among all groups based on {sensitive} ({", ".join(attr_series.index.values)})')
     z2 = z.stack('seed').unstack('Method').sort_index(axis=1)
     print(z2)
-    print(z2.describe())
+    print(z2.describe().round(2))
