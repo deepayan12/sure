@@ -28,20 +28,32 @@ min         0.50  0.45  0.45  0.49  0.49  0.45  0.49  0.50  0.49  0.56
 max         0.75  0.49  0.51  0.59  0.53  0.59  0.70  0.74  0.74  0.75
 </pre>
 
+### Description of inputs:
 The file `example.npz` contains 7 pieces of information:
 * sensitive_cols, 
 * X_train and X_test, 
 * X_train_sensitive and X_test_sensitive, and
 * y_train and y_test
 
-Description:
+
 * X_train is a matrix where each row is the feature vector of one data point.
 * y_train is a 1D array of 0/1
 * X_train_sensitive is a matrix where the rows are data points, the columns are the various groups/subgroups, and each cell is 1 if the datapoint belongs to the given subgroup and 0 otherwise.
 * sensitive_cols is a dictionary that describes the subgroups. For example:
   * `sensitive_cols={'gender':[('Male',0), ('Female',1), ('Other', 2)]}` has three groups for gender named Male/Female/Other. So X_train_sensitive has 3 columns.
   * `sensitive_cols={'gender':[('Male',0), ('Female',1), ('Other', 2)], 'race':[('Caucasian', 3), ('African-American', 4), ('Other',5)]}` has three groups for gender and three for race. So X_train_sensitive has 6 columns.
+  * In example.npz, we have `sensitive_cols='sim-subgroups': [('baseline', 0),  ('subgroup at 0 degrees', 1), ('subgroup at 90 degrees', 2)]}`
 
+
+### Description of results
+Since `num_seeds=5`, we run 5 repetitions of the experiment on the same dataset.
+The first table of numbers shows one run per row.
+Each column is the training/testing accuracy at some epoch.
+The numbers are the worst-case accuracy among all groups.
+
+
+
+### Reference:
 If you use this code, please cite the following paper
 <pre>
 SURE: Robust, Explainable, and Fair Classification without Sensitive Attributes,
