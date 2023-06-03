@@ -1,5 +1,6 @@
 # Robust, Explainable, and Fair Classification without Sensitive Attributes (SURE)
 ### Train a classifier to be accurate on all subgroups within a dataset
+![Snapshot](snapshot.png)
 
 Sample run:
 <pre>
