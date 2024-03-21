@@ -116,9 +116,17 @@ def cluster_scanner(X, baseline, device, **kwds):
     if best_dir is None or overall_goodness < last_grp_goodness:
       break
     
-    to_keep_mask = (extras['bin_min'] is None or baseline[baseline_ids,best_dir]>extras['bin_min']) & \
-                   (extras['bin_max'] is None or baseline[baseline_ids,best_dir]<=extras['bin_max'])
-        
+    # The following line works on my setup, but apparently not elsewhere.
+#    to_keep_mask = (extras['bin_min'] is None or baseline[baseline_ids,best_dir]>extras['bin_min']) & \
+#                   (extras['bin_max'] is None or baseline[baseline_ids,best_dir]<=extras['bin_max'])
+
+    # Ugly workaround
+    bin_min = extras['bin_min'] if (extras['bin_min'] is not None) else -1e99
+    bin_max = extras['bin_max'] if (extras['bin_max'] is not None) else 1e99
+    a = baseline[baseline_ids,best_dir]>bin_min
+    b = baseline[baseline_ids,best_dir]<=bin_max
+    to_keep_mask = a & b
+
     except_dirs = np.append(except_dirs, best_dir)
     this_X = X[points_idx]
     baseline_ids = baseline_ids[to_keep_mask]
